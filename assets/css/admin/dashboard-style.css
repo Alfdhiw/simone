@@ -2165,6 +2165,28 @@ textarea.form-control {
   border-radius: 0.35rem;
 }
 
+.section {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.foto  ul {
+  list-style-type: none;
+  padding-top: 100px;
+  padding-right: 50px;
+}
+
+/* Style the content */
+.article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+
+
 .form-row > .col > .invalid-tooltip,
 .form-row > [class*="col-"] > .invalid-tooltip {
   left: 5px;

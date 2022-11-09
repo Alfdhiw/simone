@@ -26,4 +26,28 @@ class Dashboard extends CI_Controller
 		$this->load->view('admin/admin');
 		$this->load->view('admin/template/footer');
 	}
+
+	public function menu_management()
+	{
+		$this->load->view('admin/template/header');
+		$this->load->view('admin/template/sidebar');
+		$this->load->view('admin/menu_management');
+		$this->load->view('admin/template/footer');
+	}
+
+	public function user_role()
+	{
+		$this->load->view('admin/template/header');
+		$this->load->view('admin/template/sidebar');
+		$this->load->view('admin/user_role');
+		$this->load->view('admin/template/footer');
+	}
+
+	public function data_mahasiswa()
+	{
+		$this->load->view('admin/template/header');
+		$this->load->view('admin/template/sidebar');
+		$this->load->view('admin/data_mahasiswa');
+		$this->load->view('admin/template/footer');
+	}
 }
