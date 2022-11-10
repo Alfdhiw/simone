@@ -50,4 +50,20 @@ class Dashboard extends CI_Controller
 		$this->load->view('admin/data_mahasiswa');
 		$this->load->view('admin/template/footer');
 	}
+
+	public function data_penyelia()
+	{
+		$this->load->view('admin/template/header');
+		$this->load->view('admin/template/sidebar');
+		$this->load->view('admin/data_penyelia');
+		$this->load->view('admin/template/footer');
+	}
+
+	public function monitoring()
+	{
+		$this->load->view('admin/template/header');
+		$this->load->view('admin/template/sidebar');
+		$this->load->view('admin/monitoring');
+		$this->load->view('admin/template/footer');
+	}
 }
