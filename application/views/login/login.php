@@ -33,7 +33,7 @@
                     <img src="<?= base_url() ?>assets/img/login/udinus.jpg" alt="IMG">
                 </div>
 
-                <form class="login100-form validate-form">
+                <form class="login100-form validate-form" method="post" action="<?php echo base_url('login/loginuser'); ?>">
                     <span class="login100-form-title">
                         Selamat Datang<br>
                         Di Aplikasi Magang Online<br>
@@ -41,27 +41,30 @@
                         <br>
                         <br>
                         <br>
+                        <?php if ($this->session->flashdata('message')) {
+                            echo '<p class="warning mt-2 mb-2">' . $this->session->flashdata('message') . '</p>';
+                        } ?>
                         <div class="wrap-input100">
                             <span class="symbol-input100">
                                 <i class="fa fa-user"></i>
                             </span>
-                            <input class="input100 shadow" style="background-color:white" type="text" name="username" id="username" placeholder="Username">
-                            <span class="focus-input100">
-                            </span>
+                            <input class="input100 is-valid shadow" style="background-color:white" type="email" name="email" id="email" placeholder="Email Aktif" required>
+                            <span class="focus-input100"></span>
                         </div>
 
                         <div class="wrap-input100">
                             <span class="symbol-input100">
                                 <i class="fa fa-lock"></i>
                             </span>
-                            <input class="input100 shadow" style="background-color:white" type="password" name="password" id="password" placeholder="Password">
+                            <input class="input100 shadow" style="background-color:white" type="password" name="password" id="password" placeholder="Password" required>
                             <span class="focus-input100"></span>
                         </div>
-
+                        <?php echo $this->session->flashdata('msg'); ?>
+                        <input type="hidden" name="role" value="user">
                         <div class="container-login100-form-btn">
-                            <a type="button" class="login100-form-btn" href="<?= base_url('home/mahasiswa'); ?>">
+                            <button type="submit" class="login100-form-btn">
                                 Login
-                            </a>
+                            </button>
                         </div>
                         <div class="container-login100-form-btn">
                             <a class="login100-form-linked" href="<?= base_url('home'); ?>">
@@ -69,6 +72,7 @@
                             </a>
                         </div>
                     </span>
+                    <?php echo form_close() ?>
                 </form>
             </div>
         </div>
@@ -86,6 +90,7 @@
     <script src="<?= base_url() ?>assets/vendor/login/bootstrap/js/bootstrap.min.js"></script> -->
     <!--===============================================================================================-->
     <script src="<?= base_url() ?>assets/vendor/login/select2/select2.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/login/sweetalert2.all.min.js"></script>
     <!--===============================================================================================-->
     <script src="<?= base_url() ?>assets/vendor/login/tilt/tilt.jquery.min.js"></script>
     <script>
