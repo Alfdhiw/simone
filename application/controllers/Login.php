@@ -38,6 +38,8 @@ class Login extends CI_Controller
 			// if ($query->num_rows() > 0) {
 
 			if ($user) {
+				// var_dump($this->db->last_query());
+				// die;
 				if (md5($password) == $user->password) {
 					$query = $this->auth->getUserPassUsers($email, $password);
 					$data = $query->row();
@@ -45,6 +47,7 @@ class Login extends CI_Controller
 					if ($data->role == 1) {
 						$this->CI->session->set_userdata('userid', $data->kode);
 						$this->CI->session->set_userdata('nama', $data->nama);
+						$this->CI->session->set_userdata('foto', $data->foto);
 						$this->CI->session->set_userdata('email', $data->email);
 						$this->CI->session->set_userdata('role_id', 1);
 						$this->CI->session->set_userdata('logged_in', true);
@@ -53,6 +56,7 @@ class Login extends CI_Controller
 						$this->CI->session->set_userdata('userid', $data->kode);
 						$this->CI->session->set_userdata('username', $data->username);
 						$this->CI->session->set_userdata('nama', $data->nama);
+						$this->CI->session->set_userdata('foto', $data->foto);
 						$this->CI->session->set_userdata('email', $data->email);
 						$this->CI->session->set_userdata('role_id', 2);
 						$this->CI->session->set_userdata('logged_in', true);

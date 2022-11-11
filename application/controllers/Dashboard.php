@@ -21,10 +21,14 @@ class Dashboard extends CI_Controller
 	 */
 	public function index()
 	{
+		$data['title'] = 'Dashboard Admin';
+		$id = $this->session->userdata('userid');
+		$data['nama'] = $this->db->get_where('admin', ['kode_admin' => $id])->row_array();
 		$this->load->view('admin/template/header');
-		$this->load->view('admin/template/sidebar');
-		$this->load->view('admin/admin');
-		$this->load->view('admin/template/footer');
+		$this->load->view('admin/template/sidebar', $data);
+		$this->load->view('admin/template/topbar', $data);
+		$this->load->view('admin/admin', $data);
+		$this->load->view('admin/template/footer', $data);
 	}
 
 	public function menu_management()
