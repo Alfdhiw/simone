@@ -1,20 +1,26 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller
-{
+
+class DaftarMagang extends CI_Controller{
 
     function __construct(){
         parent::__construct();
-            $this->load->helper('captcha');
-            $this->load->library('session');
-        // include_once (dirname(__FILE__) . "/peserta/DaftarMagang.php");
         $this->load->model('M_Pendaftaran');
     }
 
-    public function index()
-    {
-             $this->form_validation->set_rules('nama','Nama Lengkap','required');
+    //function halaman utama dashboard
+    public function index(){
+        $id = $this->session->userdata('userid');
+		$data['nama'] = $this->db->get_where('peserta', ['kode_magang' => $id])->row_array();
+        $this->load->view('home/template/header',$data);
+		$this->load->view('home/home',$data);
+		$this->load->view('home/template/footer',$data);
+    }
+
+    //function untuk pendaftaran peserta magang
+    public function pendaftaranMagang(){
+        $this->form_validation->set_rules('nama','Nama Lengkap','required');
 			$this->form_validation->set_rules('email', 'Pastikan Email Aktif', 'required');
 			$this->form_validation->set_rules('sekolah', 'Universitas atau Sekolah', 'required');
 			$this->form_validation->set_rules('jurusan', 'Asal Jurusan', 'required');
@@ -103,23 +109,56 @@ class Home extends CI_Controller
 					}
 
 				}else{
-					redirect('Home/index');
+					redirect('mahasiswa/DaftarMagang/tambah');
 				}
 			}
     }
+    //function untuk load captcha
+	public function form(){
+		if(empty($_POST)){
+			$this->captcha_setting();
+		}else{
+			//membandingkan nilai
+			if(strcasecmp($_SESSION['captchaWord'],$_POST['captcha']) == 0){
+				echo "<script type='text/javascript'>alert('Pendaftaran Berhasil');</script>";
+				$this->captcha_setting();
+			}else{
+				echo "<script type='text/javascript'>alert('Coba Lagi');</script>";
+				$this->captcha_setting();
+			}
+		}
+	}
 
 
-    public function mahasiswa()
-    {
-        $this->load->view('home/template/header_login');
-        $this->load->view('home/home-peserta');
-        $this->load->view('home/template/footer');
-    }
+	//function untuk generate code captcha
+	public function captcha_setting(){
+		$values = array(
+			'word'=>'',
+			'word_length'=>8,
+			'img_path'=>'./assets/captcha',
+			'img_url' => base_url(). '/assets/captcha',
+			'font_path'=> base_url(). 'system/fonts/texb.ttf',
+			'img_width'=>150,
+			'img_height'=>50,
+			'expiration' =>3600 #atau 1jam
+		);
+		$data =create_captcha($values);
+		$_SESSION['captchaWord'] = $data['word'];
+	}
+	public function captcha_refresh(){
+$values = array(
+'word' => '',
+'word_length' => 8,
+'img_path' => './images/',
+'img_url' => base_url() .'images/',
+'font_path' => base_url() . 'system/fonts/texb.ttf',
+'img_width' => '150',
+'img_height' => 50,
+'expiration' => 3600
+);
+$data = create_captcha($values);
+$_SESSION['captchaWord'] = $data['word'];
+echo $data['image'];
 
-    public function absen()
-    {
-        $this->load->view('home/template/header_login');
-        $this->load->view('home/absen');
-        $this->load->view('home/template/footer');
-    }
+}
 }

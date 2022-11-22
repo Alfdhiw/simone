@@ -1,3 +1,13 @@
+ <script>
+       $(document).ready(function(){
+           $('.captcha-refresh').on('click', function(){
+               $.get('<?php echo base_url().'peserta/DaftarMagang/pendaftaranMagang'; ?>', function(data){
+                   $('#image_captcha').html(data);
+               });
+           });
+       });
+   </script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <div id="myCarousel" class="carousel slide banner_main" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -164,8 +174,8 @@
         <div class="row d_flex">
             <div class="col-md-7">
                 <div class="titlepage">
-                    <h2>Form<span class="blu">Pendafataran</span></h2>
-                    <form>
+                    <h2>Form<span class="blu">Pendaftaran</span></h2>
+                    <form action="<?php echo base_url(); ?>Home/index" method="POST" enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="nama"><b>Nama</b></label>
@@ -173,20 +183,49 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email"><b>Email</b></label>
-                                <input type="text" class="form-control shadow" name="email" id="email" placeholder="Pastikan Email Aktif">
+                                <input type="email" class="form-control shadow" name="email" id="email" placeholder="Masukan Alamat Email yang aktif">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="jeniskel"><b>Jenis Kelamin</b></label>
-                            <select class="form-control shadow">
-                                <option>Laki-Laki</option>
-                                <option>Perempuan</option>
+                            <select class="form-control shadow" name="jeniskel">
+                                <option value="">--Jenis Kelamin--</option>
+                                 <option value="">
+                              <?php if ($jenis['jeniskel'] == 'P') {
+                                echo "Perempuan"
+                              ?>
+                              <?php } ?>
+                               <?php if ($jenis['jeniskel'] == 'L') {
+                                echo "Laki-laki"
+                              ?>
+                              <?php } ?>
+                             </option>
+                              <option value="P">Perempuan</option>
+                              <option value="L">Laki-laki</option>
+                            </select>
+                        </div>
+                         <div class="form-group">
+                            <label for="jeniskel"><b>Pilih Tingkat Pendidikan</b></label>
+                            <select class="form-control shadow" name="tingkat_pendidikan">
+                                <option value="">--Pilih Tingkat Pendidikan--</option>
+                                 <option value="">
+                              <?php if ($tingkat_pendidikan['tingkat_pendidikan'] == 1) {
+                                echo "Sekolah Menengah Kejuruan"
+                              ?>
+                              <?php } ?>
+                               <?php if ($tingkat_pendidikan['tingkat_pendidikan'] == 2) {
+                                echo "Perguruan Tinggi"
+                              ?>
+                              <?php } ?>
+                             </option>
+                              <option value="1">Sekolah Menengah Kejuruan</option>
+                              <option value="2">Perguruan Tinggi</option>
                             </select>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="univ"><b>Universitas</b></label>
-                                <input type="text" class="form-control shadow" name="univ" id="univ" placeholder="Asal Universitas">
+                                <input type="text" class="form-control shadow" name="sekolah" id="univ" placeholder="Asal Universitas">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
@@ -197,10 +236,12 @@
                         </div>
                         <div class="form-group">
                             <label for="divisi"><b>Divisi Jurusan Magang</b></label>
-                            <select class="form-control shadow">
-                                <option>Marketing Officer</option>
-                                <option>IT Enginering</option>
-                                <option>IT Networking</option>
+                            <select name="divisi" class="form-control shadow">
+                                <option value="">--Divisi Magang--</option>
+                                <option value="<?= $divisi['id'] ?>"><?= $divisi['divisi'] ?></option>
+                                <?php foreach ($nama_divisi as $pilihan) : ?>
+                                <option value="<?= $pilihan['divisi'] ?>"><?= $pilihan['divisi'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-row">
@@ -210,11 +251,22 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="surat"><b>File Surat Pengantar</b></label>
-                                <input type="file" class="form-control-file" name="surat" id="surat">
+                                <input type="file" class="form-control-file" name="surat_pengantar" id="surat">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <div id="image_captcha"><?php echo $image; ?></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <a  href="javascript:void(0);" class="captcha-refresh" ><img src="<?= base_url(); ?>assets/img/refresh.png" alt="" id="ref_symbol" width="25px" height="25px"></a>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" name="captcha" value=""/>
                             </div>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit" class="btn btn-success" name="submit">Submit</button>
                     </form>
                 </div>
             </div>

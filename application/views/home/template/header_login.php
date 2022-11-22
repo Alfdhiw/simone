@@ -31,24 +31,6 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-<!--Function untuk mengaktifkan Captcha-->
-      <script type="text/javascript">
-        $document.ready(function(){
-            $("a.refresh").click(function(){
-                jQuery.ajax({
-                    type: "POST",
-                    url:"<?php echo base_url();?>" +"peserta/DaftarMagang/captcha_refresh",
-                    success: function(res){
-                        if(res){
-                            jQuery("div.image").html(res);
-                        }
-                    }
-                });
-            });
-        });
-      </script>
 </head>
 <!-- body -->
 
@@ -90,6 +72,10 @@
                             <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
                                 <ul class="btn">
                                     <li class="down_btn"><a href="<?= base_url('login') ?>"><b>Login</b></a></li>
+                                    <li><a href="<?= base_url('profil') ?>"><img src="<?= base_url('assets/') ?>img/home/te1.png" class="rounded-circle" style="width:50px; height:50px;"></a></li>
+                                    <li>
+                                        <h4 style="color: white; font-weight:500;"></h4>
+                                    </li>
                                     <li></li>
                                     <li></li>
                                     <li><button type="button" id="sidebarCollapse">
