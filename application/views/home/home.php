@@ -1,7 +1,7 @@
  <script>
        $(document).ready(function(){
            $('.captcha-refresh').on('click', function(){
-               $.get('<?php echo base_url().'peserta/DaftarMagang/pendaftaranMagang'; ?>', function(data){
+               $.get('<?php echo base_url().'home/index'; ?>', function(data){
                    $('#image_captcha').html(data);
                });
            });
